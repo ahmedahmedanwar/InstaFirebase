@@ -10,16 +10,35 @@ import FirebaseAuth
 
 public class AuthManger {
     
-   public let shared = AuthManger()
+    static let shared = AuthManger()
     
     //MARK:- public
     
-    static func registerNewUser(userName:String, email:String , password:String){
-        
+    static func registerNewUser(username:String, email:String , password:String){
+        /*
+        - Check if username is avilabel.
+        - Check if email is avilable.
+        - Cerate Account.
+        - insert account to database.
+        */
+        DatabaseManger.shared.canCreateNewUser(with: email, username: username) { canCreate in
+           /*
+             - Cerate Account.
+             - insert account to database.
+             */
+            Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                if error == nil , result != nil {
+                    return
+                }
+                //Insert User To database
+                
+            }
+            
+        }
         
     }
     
-    public func loginUser(userName:String?, email:String? , password:String, completion: @escaping (Bool) ->Void ){
+    public func loginUser(username:String?, email:String? , password:String, completion: @escaping (Bool) ->Void ){
     if let email = email{
     // email login
         Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
@@ -27,10 +46,10 @@ public class AuthManger {
                 completion(false)
                 return
             }
-            completion(false)
+            completion(true)
           }
         }
-    else if let username = userName {
+    else if let username = username {
            // userName login
             print(username)
         }

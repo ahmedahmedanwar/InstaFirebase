@@ -11,7 +11,7 @@ import FirebaseStorage
 
 public class StorageManger {
     
-    static let shared = StorageManger()
+ //   static let shared = StorageManger()
     
     //MARK:- Public
     

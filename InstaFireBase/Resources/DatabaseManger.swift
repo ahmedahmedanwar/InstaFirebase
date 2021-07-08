@@ -11,16 +11,20 @@ import FirebaseAuth
 
 public class DatabaseManger {
     
-    let shared = DatabaseManger()
+ static let shared = DatabaseManger()
     
     //MARK:- public
     
-    public func registerNewUser(userName:String, email:String , password:String){
+    //Check if username is avilable
+    // -email:String represinting email
+    // -username:String represinting username
+    
+    
+    public func canCreateNewUser(with email:String,  username:String, completion:(Bool)-> Void ){
+        
         
     }
     
-    public func loginUser(userName:String, email:String , password:String){
-        
-    }
+   
     
 }

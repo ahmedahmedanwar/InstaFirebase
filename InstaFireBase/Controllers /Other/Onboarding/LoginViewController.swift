@@ -9,7 +9,7 @@ import UIKit
 import SafariServices
 //import FirebaseAuth
 
-class LoginViewController: UIViewController , UITextFieldDelegate{
+class LoginViewController: UIViewController {
     
     struct Constants {
         static let cornerRadious:CGFloat = 8.0
@@ -185,24 +185,28 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
             
             username = userNameEmail
         }
-      let  shared = AuthManger()
+ //     let  shared = AuthManger()
         
-        shared.loginUser(userName: username, email: email, password: password) { sucess in
+        AuthManger.shared.loginUser(username: username, email: email, password: password) { sucess in
+            
             DispatchQueue.main.async {
-            
-                if sucess{
-                    //In case user is logged in
-                    self.dismiss(animated: true, completion: nil)
-                }
                 
-                //In case error occured
+                    if sucess{
+                        //In case user is logged in
+                        
+                        self.dismiss(animated: true, completion: nil)
+                    }else{
+                    
+                    //In case error occured
+                    
+                    let alert = UIAlertController(title: "Login error", message: "we were unable to logged you in", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                    
                 
-                let alert = UIAlertController(title: "Login error", message: "we were unable to logged you in", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
-                
+                    }
             }
-            
+          
             }
            
         
@@ -228,10 +232,16 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
     @objc private func didTapCreateAccount(){
         
         let vc = RegistrationViewController()
+        vc.title = "Create a new account "
 //        vc.modalPresentationStyle = .fullScreen
-        present (vc , animated: true)
+        present (UINavigationController(rootViewController: vc),animated: true)
     }
     
+    
+
+}
+
+extension LoginViewController: UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == userNameEmailTextField {
@@ -239,6 +249,7 @@ class LoginViewController: UIViewController , UITextFieldDelegate{
             passwordTextField.becomeFirstResponder()
         }else if  textField == passwordTextField {
             
+      //      userNameEmailTextField.becomeFirstResponder()
             didTapLoginBtn()
         }
         return true
