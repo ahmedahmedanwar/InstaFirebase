@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
 class RegistrationViewController: UIViewController {
 
@@ -67,7 +69,7 @@ class RegistrationViewController: UIViewController {
         button.setTitle("Signup", for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = Constants.cornerRadious
-        button.backgroundColor = .green
+        button.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
         button.setTitleColor(.white, for: .normal)
         return button
     }()
@@ -108,6 +110,18 @@ class RegistrationViewController: UIViewController {
               let username = usernameField.text ,username.isEmpty else{
         return 
         }
+        AuthManger.shared.registerNewUser(username: username, email: email, password: password){ register in
+            DispatchQueue.main.async {
+                if register{
+                    //Go to home
+                    return
+                }else{
+                    //Failed
+                }
+            }
+            
+        }
+        
     }
 
     /*
