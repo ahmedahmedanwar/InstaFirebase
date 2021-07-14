@@ -37,6 +37,7 @@ extension UIView {
 extension String {
     
         func safeDatabaseKey() -> String{
+            
         return self.replacingOccurrences(of: "@", with: "-")
         return self.replacingOccurrences(of: ".", with: "-")
         

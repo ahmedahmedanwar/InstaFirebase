@@ -103,12 +103,13 @@ class RegistrationViewController: UIViewController {
         usernameField.resignFirstResponder()
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
-        
+        regiserBtn.resignFirstResponder()
         guard let email = emailField.text, !email.isEmpty,
-            
+
               let password = passwordField.text , !password.isEmpty ,password.count >= 8 ,
-              let username = usernameField.text ,username.isEmpty else{
-        return 
+              let username = usernameField.text , !username.isEmpty else{
+            
+            return
         }
         AuthManger.shared.registerNewUser(username: username, email: email, password: password){ register in
             DispatchQueue.main.async {
@@ -119,11 +120,10 @@ class RegistrationViewController: UIViewController {
                     //Failed
                 }
             }
-            
-        }
-        
-    }
 
+        }
+
+    }
     /*
     // MARK: - Navigation
 
